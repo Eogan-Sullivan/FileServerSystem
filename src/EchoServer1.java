@@ -10,7 +10,7 @@ import java.io.*;
 
 public class EchoServer1 {
    public static void main(String[] args) {
-      int serverPort = 7;    // default port
+      int serverPort = 2208;    // default port
       if (args.length == 1 )
          serverPort = Integer.parseInt(args[0]);       
       try {
@@ -21,9 +21,10 @@ public class EchoServer1 {
          while (true) {  // forever loop
             DatagramMessage request = 
                mySocket.receiveMessageAndSender();
-            System.out.println("Request received");
+            System.out.println("File Uploading");
             String message = request.getMessage( );
-            System.out.println("message received: "+ message);
+           //upload CONFIRM Message on server
+            System.out.println("File Uploaded \n "+ message);
             // Now send the echo to the requestor
             mySocket.sendMessage(request.getAddress( ),
                request.getPort( ), message);

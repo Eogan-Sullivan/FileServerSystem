@@ -23,7 +23,6 @@ static final int MAX_LEN = 100;
          this.send(datagram);
    } // end sendMessage
 
-   //Edit here to 
    public String receiveMessage( )
 		throws IOException {		
          byte[ ] receiveBuffer = new byte[MAX_LEN];

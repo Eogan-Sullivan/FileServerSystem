@@ -59,11 +59,13 @@ public class ClientLogIn {
 		frmFilesystemClient.getContentPane().setLayout(null);
 		
 		txtHostAddress = new JTextField();
+		txtHostAddress.setText("127.0.0.1");
 		txtHostAddress.setBounds(114, 31, 86, 20);
 		frmFilesystemClient.getContentPane().add(txtHostAddress);
 		txtHostAddress.setColumns(10);
 		
 		txtPortNo = new JTextField();
+		txtPortNo.setText("2208");
 		txtPortNo.setColumns(10);
 		txtPortNo.setBounds(114, 76, 86, 20);
 		frmFilesystemClient.getContentPane().add(txtPortNo);
@@ -88,10 +90,15 @@ public class ClientLogIn {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(txtName.getText() == null )
-				{
-					JOptionPane.showMessageDialog(null, "Make Sure value is entereed for all fields");
-				}
+			ClientMainMenu.setName(txtName.getText());
+			ClientMainMenu.setPortNo(txtPortNo.getText());
+			ClientMainMenu.setHostAddress(txtHostAddress.getText());
+			ClientMainMenu.main(null);
+			
+			frmFilesystemClient.dispose();
+			
+				
+				
 			}
 		});
 		btnLogin.setBounds(19, 159, 181, 23);
