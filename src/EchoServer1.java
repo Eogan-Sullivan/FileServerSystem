@@ -1,4 +1,5 @@
 import java.io.*;
+import java.net.SocketException;
 
 /**
  * This module contains the application logic of an echo server
@@ -9,55 +10,62 @@ import java.io.*;
  */
 
 public class EchoServer1 {
+	 static int serverPort = 2208;  
+	 static String outputMessage;
+     static MyServerDatagramSocket mySocket;
    public static void main(String[] args) {
-      int serverPort = 2208;    // default port
-      if (args.length == 1 )
-         serverPort = Integer.parseInt(args[0]);       
-      try {
-         // instantiates a datagram socket for both sending
-         // and receiving data
-   	   MyServerDatagramSocket mySocket = new MyServerDatagramSocket(serverPort); 
-         System.out.println("Echo server ready.");  
+      
+      try {       
+         System.out.println("File Transfer server ready.");  
+  
+         mySocket = new MyServerDatagramSocket(serverPort);
+         DatagramMessage request = mySocket.receiveMessageAndSender();
          while (true) {  // forever loop
-            DatagramMessage request = 
-               mySocket.receiveMessageAndSender();
-            String message = request.getMessage( );
-            recieveMessage(message);
-            mySocket.sendMessage(request.getAddress( ),
-               request.getPort( ), message);
+            recieveMessage(request.getMessage());
+            mySocket.sendMessage(request.getAddress( ), request.getPort( ), outputMessage);
+            System.out.println(outputMessage);
 		   } //end while
+         
        } // end try
 	    catch (Exception ex) {
           ex.printStackTrace( );
 	    } // end catch
    } //end main
    
-   public static void recieveMessage(String message) {
-	   if(message.startsWith("701"))
+   public static void recieveMessage(String recievedMessage)  {
+	
+	
+            
+	   if(recievedMessage .startsWith("701"))
 		{
 		   //login
-		   message = message.replace("701","");
-		   message = message.trim();
-		   System.out.println("Logging in:" + message);
+		   outputMessage = "Login SuccessFul"; 
+		   recievedMessage  = recievedMessage.replace("701","");
+		   recievedMessage  = recievedMessage .trim();
+		
+     
 		}
 	   
-	   else if(message.startsWith("702"))
+	   else if(recievedMessage.startsWith("702"))
 	   {
 		   //logout
+		   mySocket.close();
 	   }
 	   
-	   else if(message.startsWith("703"))
+	   else if(recievedMessage.startsWith("703"))
 	   {
 		   //upload
 	   }
 	   
-	   else if(message.startsWith("704"))
+	   else if(recievedMessage.startsWith("704"))
 	   {
 		   //download
 	   }
 	   
 	   
-	   else 
+	   else {
 		   System.out.println("707 Request not found"); 
+	   }
+	
    }
 } // end class      

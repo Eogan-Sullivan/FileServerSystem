@@ -72,7 +72,7 @@ public class ClientMainMenu {
 			public void actionPerformed(ActionEvent e) {
 											
 							EchoClient1 myClient = new EchoClient1();
-							myClient.clientConnection(hostAddress,portNo,txtFilePath.getText());
+							myClient.clientConnection(hostAddress,portNo,""+txtFilePath.getText());
 						
 					
 					

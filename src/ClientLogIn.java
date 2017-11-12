@@ -31,14 +31,7 @@ public class ClientLogIn {
 				}
 			}
 		});
-	}
-
-	
-	
-	
-	
-	
-	
+	}	
 	
 	/**
 	 * Create the application.
