@@ -24,5 +24,5 @@ class EchoClient1 {
       catch (Exception ex) {
          ex.printStackTrace( );
       } // end catch
-   } //end main
+   }
 } // end class      

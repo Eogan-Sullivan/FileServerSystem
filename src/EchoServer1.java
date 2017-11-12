@@ -21,11 +21,8 @@ public class EchoServer1 {
          while (true) {  // forever loop
             DatagramMessage request = 
                mySocket.receiveMessageAndSender();
-            System.out.println("File Uploading");
             String message = request.getMessage( );
-           //upload CONFIRM Message on server
-            System.out.println("File Uploaded \n "+ message);
-            // Now send the echo to the requestor
+            recieveMessage(message);
             mySocket.sendMessage(request.getAddress( ),
                request.getPort( ), message);
 		   } //end while
@@ -34,4 +31,33 @@ public class EchoServer1 {
           ex.printStackTrace( );
 	    } // end catch
    } //end main
+   
+   public static void recieveMessage(String message) {
+	   if(message.startsWith("701"))
+		{
+		   //login
+		   message = message.replace("701","");
+		   message = message.trim();
+		   System.out.println("Logging in:" + message);
+		}
+	   
+	   else if(message.startsWith("702"))
+	   {
+		   //logout
+	   }
+	   
+	   else if(message.startsWith("703"))
+	   {
+		   //upload
+	   }
+	   
+	   else if(message.startsWith("704"))
+	   {
+		   //download
+	   }
+	   
+	   
+	   else 
+		   System.out.println("707 Request not found"); 
+   }
 } // end class      
