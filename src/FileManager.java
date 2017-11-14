@@ -1,12 +1,20 @@
+import java.io.File;
 
 public class FileManager {
 
-	public boolean checkExists(String Directory)
+	public boolean checkExists(String username)
 	{
-		boolean doesExist = false;
 		
-		return doesExist;
+     boolean exists = false;
+	 File dir = new File("C://DistributedComputing//"+username); 
+	 return  exists = dir.exists();			
 	}
 	
+	public  void createFolder(String username)
+	{
+		 File dir = new File("C://DistributedComputing//"+username);
+		 dir.mkdirs();
+	}
+
 	
 }
