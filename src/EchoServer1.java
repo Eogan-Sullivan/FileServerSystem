@@ -15,12 +15,13 @@ public class EchoServer1 {
      static MyServerDatagramSocket mySocket;
    public static void main(String[] args) {
       
-      try {       
-         System.out.println("File Transfer server ready.");  
-  
+      try {                
          mySocket = new MyServerDatagramSocket(serverPort);
-         DatagramMessage request = mySocket.receiveMessageAndSender();
+      
+         System.out.println("File Transfer server ready."); 
+         
          while (true) {  // forever loop
+        	DatagramMessage request = mySocket.receiveMessageAndSender();
             recieveMessage(request.getMessage());
             mySocket.sendMessage(request.getAddress( ), request.getPort( ), outputMessage);
             System.out.println(outputMessage);
@@ -39,27 +40,30 @@ public class EchoServer1 {
 	   if(recievedMessage .startsWith("701"))
 		{
 		   //login
-		   outputMessage = "Login SuccessFul"; 
+		   outputMessage = "702 Login SuccessFul"; 
 		   recievedMessage  = recievedMessage.replace("701","");
 		   recievedMessage  = recievedMessage .trim();
 		
      
 		}
 	   
-	   else if(recievedMessage.startsWith("702"))
-	   {
-		   //logout
-		   mySocket.close();
-	   }
-	   
 	   else if(recievedMessage.startsWith("703"))
 	   {
-		   //upload
+		   //704 logout return
+		   
+		   recievedMessage  = recievedMessage.replace("703","Logged Out;");
+		   outputMessage = "704 Logut SuccessFul";
+		  // mySocket.close();
 	   }
 	   
-	   else if(recievedMessage.startsWith("704"))
+	   else if(recievedMessage.startsWith("705"))
 	   {
-		   //download
+		   //706 upload
+	   }
+	   
+	   else if(recievedMessage.startsWith("707"))
+	   {
+		   //708 download
 	   }
 	   
 	   

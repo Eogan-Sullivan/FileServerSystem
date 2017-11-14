@@ -62,6 +62,7 @@ public class ClientMainMenu {
 	 */
 	private void initialize() {
 		
+		EchoClient1 myClient = new EchoClient1();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,12 +70,8 @@ public class ClientMainMenu {
 		
 		JButton btnUploadFile = new JButton("Upload File");
 		btnUploadFile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-											
-							EchoClient1 myClient = new EchoClient1();
-							myClient.clientConnection(hostAddress,portNo,""+txtFilePath.getText());
-						
-					
+			public void actionPerformed(ActionEvent e) {																		
+							myClient.clientConnection(hostAddress,portNo,""+txtFilePath.getText());										
 					
 				}
 
@@ -148,6 +145,19 @@ public class ClientMainMenu {
 		});
 		btnFilePicker.setBounds(170, 34, 49, 23);
 		frame.getContentPane().add(btnFilePicker);
+		
+		JButton logoutBtn = new JButton("Log Out");
+		logoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				myClient.clientConnection(txtHost.getText(), txtPort.getText(), "703 "+name );
+				frame.dispose();
+				ClientLogIn.main(null);
+				
+			}
+		});
+		logoutBtn.setBounds(160, 216, 131, 23);
+		frame.getContentPane().add(logoutBtn);
 		
 	}
 }

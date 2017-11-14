@@ -93,6 +93,7 @@ public class ClientLogIn {
 			//send Message to Server About Login
 			EchoClient1 myClient = new EchoClient1();
 			myClient.clientConnection(txtHostAddress.getText(), txtPortNo.getText(), "701"+txtName.getText());
+			
 				
 				
 			}

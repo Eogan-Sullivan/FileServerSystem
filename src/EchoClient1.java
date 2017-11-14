@@ -19,6 +19,7 @@ class EchoClient1 {
             }
             else {
                echo = helper.getEcho( message);
+               JOptionPane.showMessageDialog(null, echo);
             }}
       catch (Exception ex) {
          ex.printStackTrace( );
