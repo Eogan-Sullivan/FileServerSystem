@@ -13,7 +13,7 @@ public class EchoServer1 {
 	 static int serverPort = 2208;  
 	 static String outputMessage,sendMessage;
      static MyServerDatagramSocket mySocket;
-     static FileManager files;
+     static String userName;
    public static void main(String[] args) {
       
       try {                
@@ -35,28 +35,26 @@ public class EchoServer1 {
    } //end main
    
    public static void recieveMessage(String recievedMessage)  {
-	
+	   File dir;
 	
            //Receive 701`login request
 	   if(recievedMessage .startsWith("701"))
 		{
 		   recievedMessage  = recievedMessage.replace("701","");
 		   recievedMessage  = recievedMessage.trim();
-		   File dir = new File("C://DistributedComputing//"+recievedMessage);
+		   userName = recievedMessage;
+		   dir = new File("C://DistributedComputing//"+ userName);
 		   if(dir.exists())
 		   {
 		   //Return 702 login Message
-		   outputMessage = "701 Login Request Recieved From: " + recievedMessage ; 
-		   sendMessage = "702 Login Successful \n Welcome Back: " + recievedMessage ;
+		   outputMessage = "701 Login Request Recieved From: " + userName ; 
+		   sendMessage = "702 Login Successful \n Welcome Back: " + userName ;
 		   }
 		   else {	
 			dir.mkdirs();
-			 outputMessage = "701 Login Request Recieved From:" + recievedMessage ; 
-			   sendMessage = "702 Login Successful \n Welcome:" + recievedMessage + "\n A Folder has been created for you";
-		   }
-		   
-		 
-		   
+			 outputMessage = "701 Login Request Recieved From:" + userName ; 
+			   sendMessage = "702 Login Successful \n Welcome:" + userName + "\n A Folder has been created for you";
+		   }	   
 		}
 		    	    		  	   
 	   //receive 702 logout request
@@ -74,12 +72,21 @@ public class EchoServer1 {
 	   else if(recievedMessage.startsWith("705"))
 	   {
 		   //706 upload
+		  outputMessage = "705 Upload Request Recieved";
+		  recievedMessage = recievedMessage.replace("705", "");
+		  try {
+			uploadFile(recievedMessage);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	   }
 	   
 	   //receive download request 707
 	   else if(recievedMessage.startsWith("707"))
 	   {
 		   //708 download
+		  
 	   }
 	   
 	   // error 707 request not found 
@@ -88,4 +95,43 @@ public class EchoServer1 {
 	   }
 	
    }
+   
+   
+   public static void uploadFile(String fileToUpload) throws FileNotFoundException
+   {
+	   String[] splitedFormat = fileToUpload.split(" ");
+	   splitedFormat[0] = splitedFormat[0].trim();
+	   splitedFormat[1] = splitedFormat[1].trim();
+	   File uploadedFile = new File("C://DistributedComputing//"+ userName+ "//" +splitedFormat[0]);
+	   if(uploadedFile.exists())
+	   {
+	   byte[] fileinBytes = splitedFormat[1].getBytes();
+	   FileOutputStream out = new FileOutputStream(uploadedFile);
+	   try {
+		   
+		out.write(fileinBytes);
+		out.close();
+	   
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	   }
+	   
+	   else
+	   {
+		   try {
+			uploadedFile.createNewFile();
+			byte[] fileinBytes = splitedFormat[1].getBytes();
+			FileOutputStream out = new FileOutputStream(uploadedFile);
+			out.write(fileinBytes);
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	   }
+   }
+   
+   
 } // end class      

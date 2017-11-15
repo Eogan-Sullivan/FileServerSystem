@@ -7,6 +7,7 @@ import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,7 @@ public class ClientMainMenu {
 	private JTextField txtPort;
 	private JTextField txtHost;
 	private JTextField txtFilePath;
+	private File tempFile;
 
 
 	/**
@@ -68,10 +70,22 @@ public class ClientMainMenu {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		
 		JButton btnUploadFile = new JButton("Upload File");
 		btnUploadFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {																		
-							myClient.clientConnection(hostAddress,portNo,""+txtFilePath.getText());										
+							//myClient.clientConnection(hostAddress,portNo,""+txtFilePath.getText());
+							tempFile = new File(txtFilePath.getText());
+							
+							try {
+								
+								byte[] file = myClient.readFile( txtFilePath.getText());
+								myClient.uploadToServer(tempFile.getName(),file,txtHost.getText(),txtPort.getText());
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						
 					
 				}
 
@@ -135,10 +149,7 @@ public class ClientMainMenu {
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							System.out.println(e1);
-						}
-				
-					
-					
+						}	
 				}
 
 			}
