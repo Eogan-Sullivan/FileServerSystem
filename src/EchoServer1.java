@@ -100,12 +100,15 @@ public class EchoServer1 {
    public static void uploadFile(String fileToUpload) throws FileNotFoundException
    {
 	   String[] splitedFormat = fileToUpload.split(" ");
-	   splitedFormat[0] = splitedFormat[0].trim();
 	   splitedFormat[1] = splitedFormat[1].trim();
-	   File uploadedFile = new File("C://DistributedComputing//"+ userName+ "//" +splitedFormat[0]);
+	   splitedFormat[2] = splitedFormat[2].trim();
+	   File uploadedFile = new File("C://DistributedComputing//"+ userName+ "//" +splitedFormat[1]);
 	   if(uploadedFile.exists())
-	   {
-	   byte[] fileinBytes = splitedFormat[1].getBytes();
+	   { byte[] fileinBytes = new byte[1024];
+	for(int i = 0;i<=splitedFormat.length;i++)
+	    {fileinBytes[i]= Byte.valueOf(splitedFormat[i+3]);
+	    }
+	    
 	   FileOutputStream out = new FileOutputStream(uploadedFile);
 	   try {
 		   
