@@ -64,7 +64,7 @@ public class ClientMainMenu {
 	 */
 	private void initialize() {
 		
-		EchoClient1 myClient = new EchoClient1();
+		Client myClient = new Client();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,17 +84,21 @@ public class ClientMainMenu {
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
-							}
-						
-					
+							}											
 				}
-
 			}
 		);
 		btnUploadFile.setBounds(32, 85, 131, 23);
 		frame.getContentPane().add(btnUploadFile);
 		
 		JButton btnDownloadFile = new JButton("Download File");
+		btnDownloadFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {																		
+							
+						myClient.clientConnection(txtHost.getText(), txtPort.getText(),"707");										
+				}
+			}
+		);
 		btnDownloadFile.setBounds(32, 147, 131, 23);
 		frame.getContentPane().add(btnDownloadFile);
 		

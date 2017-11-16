@@ -1,15 +1,8 @@
 import java.io.*;
 import java.net.SocketException;
+import java.nio.file.Files;
 
-/**
- * This module contains the application logic of an echo server
- * which uses a connectionless datagram socket for interprocess 
- * communication.
- * A command-line argument is required to specify the server port.
- * @author M. L. Liu
- */
-
-public class EchoServer1 {
+public class Server {
 	 static int serverPort = 2208;  
 	 static String outputMessage,sendMessage;
      static MyServerDatagramSocket mySocket;
@@ -34,7 +27,7 @@ public class EchoServer1 {
 	    } // end catch
    } //end main
    
-   public static void recieveMessage(String recievedMessage)  {
+   public static void recieveMessage(String recievedMessage) throws IOException  {
 	   File dir;
 	
            //Receive 701`login request
@@ -87,12 +80,16 @@ public class EchoServer1 {
 	   else if(recievedMessage.startsWith("707"))
 	   {
 		   //708 download
-		  
+		   outputMessage = "707 Download Request Recieved";
+		   recievedMessage.replace("707","");
+		   downloadFile(recievedMessage);
+		   sendMessage = "708 File Downloaded";	  
 	   }
 	   
-	   // error 707 request not found 
+	   // error 709 request not found 
 	   else {
-		   System.out.println("707 Request not found"); 
+		   outputMessage = "709 Request not found";
+		   sendMessage = "709 Request not found";   
 	   }
 	
    }
@@ -125,11 +122,22 @@ public class EchoServer1 {
 		e.printStackTrace();
 	}
    }
-}   
-	  
-		
+   
+   public static String downloadFile(String filePath) throws IOException {
+	   byte[] fileThatsRead = new byte[1024];
+	   File thisFile = new File(filePath);
+	   try {  
+       fileThatsRead = Files.readAllBytes(thisFile.toPath());
 	   
-   
-   
-   
+	   }
+	   catch(FileNotFoundException x)
+	   {
+		   System.out.println("File Doesnt Exsist");
+	   }
+	   
+	   String filetransfered = new String(fileThatsRead);  
+	   return filetransfered;
+   }
+}   
+
 // end class      

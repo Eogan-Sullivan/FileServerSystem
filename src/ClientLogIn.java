@@ -91,7 +91,7 @@ public class ClientLogIn {
 			frmFilesystemClient.dispose();
 			
 			//send Message to Server About Login
-			EchoClient1 myClient = new EchoClient1();
+			Client myClient = new Client();
 			myClient.clientConnection(txtHostAddress.getText(), txtPortNo.getText(), "701"+txtName.getText());
 			
 				

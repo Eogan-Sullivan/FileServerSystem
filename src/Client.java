@@ -2,13 +2,13 @@ import java.io.*;
 import java.nio.file.Files;
 
 import javax.swing.JOptionPane;
-class EchoClient1 {
+class Client {
    static final String endMessage = ".";
    public void clientConnection(String address,String port ,String message) {
   
 	   try {                  
-         EchoClientHelper1 helper = 
-            new EchoClientHelper1(address, port);
+         ClientHelper helper = 
+            new ClientHelper(address, port);
          boolean done = false;
          String echo;
               
@@ -18,7 +18,7 @@ class EchoClient1 {
                helper.done( );
             }
             else {
-               echo = helper.getEcho( message);
+               echo = helper.getMessage( message);
                JOptionPane.showMessageDialog(null, echo);
             }}
       catch (Exception ex) {
