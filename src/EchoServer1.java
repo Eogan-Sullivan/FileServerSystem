@@ -76,6 +76,7 @@ public class EchoServer1 {
 		  recievedMessage = recievedMessage.replace("705", "");
 		  try {
 			uploadFile(recievedMessage);
+			sendMessage = "706 Upload Complete";
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -103,12 +104,16 @@ public class EchoServer1 {
 	   splitedFormat[1] = splitedFormat[1].trim();
 	   splitedFormat[2] = splitedFormat[2].trim();
 	   File uploadedFile = new File("C://DistributedComputing//"+ userName+ "//" +splitedFormat[1]);
-	   if(uploadedFile.exists())
-	   { byte[] fileinBytes = new byte[1024];
-	for(int i = 0;i<=splitedFormat.length;i++)
-	    {fileinBytes[i]= Byte.valueOf(splitedFormat[i+3]);
-	    }
-	    
+	
+		   String data = "";
+		   int i = 2;	  	
+		   while(i < splitedFormat.length){
+			    data+= splitedFormat[i];
+			    data+=" ";
+			    i++;
+		   }
+	
+	   byte[] fileinBytes = data.getBytes();
 	   FileOutputStream out = new FileOutputStream(uploadedFile);
 	   try {
 		   
@@ -119,22 +124,12 @@ public class EchoServer1 {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	   }
-	   
-	   else
-	   {
-		   try {
-			uploadedFile.createNewFile();
-			byte[] fileinBytes = splitedFormat[1].getBytes();
-			FileOutputStream out = new FileOutputStream(uploadedFile);
-			out.write(fileinBytes);
-			out.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	   }
    }
+}   
+	  
+		
+	   
    
    
-} // end class      
+   
+// end class      
