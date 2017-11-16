@@ -53,7 +53,7 @@ public class EchoServer1 {
 		   else {	
 			dir.mkdirs();
 			 outputMessage = "701 Login Request Recieved From:" + userName ; 
-			   sendMessage = "702 Login Successful \n Welcome:" + userName + "\n A Folder has been created for you";
+			 sendMessage = "702 Login Successful \n Welcome:" + userName + "\n A Folder has been created for you";
 		   }	   
 		}
 		    	    		  	   
@@ -100,7 +100,7 @@ public class EchoServer1 {
    
    public static void uploadFile(String fileToUpload) throws FileNotFoundException
    {
-	   String[] splitedFormat = fileToUpload.split(" ");
+	   String[] splitedFormat = fileToUpload.split("/");
 	   splitedFormat[1] = splitedFormat[1].trim();
 	   splitedFormat[2] = splitedFormat[2].trim();
 	   File uploadedFile = new File("C://DistributedComputing//"+ userName+ "//" +splitedFormat[1]);

@@ -47,7 +47,7 @@ class EchoClient1 {
    public void uploadToServer(String filename,byte[] uploadFile, String address,String port)
    {
 	  String filetransfered = new String(uploadFile); 
-	  filetransfered= "705 "+filename+" "+filetransfered;
+	  filetransfered= "705/"+filename+"/"+filetransfered;
 	  clientConnection(address, port ,filetransfered);
 	  
    }
