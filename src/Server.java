@@ -76,25 +76,38 @@ public class Server {
 		}
 	   }
 	   
+	   else if(recievedMessage.startsWith("808"))
+	   {
+		   
+	   File userDirectory = new File("C:/DistributedComputing/" + userName + "/");
+       File[] listOfFiles = userDirectory.listFiles();
+       String whichFileQuery = "";
+       for (File file : listOfFiles) {
+           whichFileQuery += file.getName().trim() + "/";
+       }
+       
+           sendMessage = whichFileQuery;
+           outputMessage = "809 File list sent to " + userName;
+	   }
+	   
+
+	   
 	   //receive download request 707
 	   else if(recievedMessage.startsWith("707"))
 	   {
 		   //708 download
 		   outputMessage = "707 Download Request Recieved";
-		   recievedMessage.replace("707","");
-		   downloadFile(recievedMessage);
-		   sendMessage = "708 File Downloaded";	  
-	   }
-	   
+		   recievedMessage = recievedMessage.replace("707","");
+		  byte [] fileToDownload = downloadFile(recievedMessage);
+		  sendToClient(recievedMessage,fileToDownload);
+	   }   
 	   // error 709 request not found 
 	   else {
 		   outputMessage = "709 Request not found";
 		   sendMessage = "709 Request not found";   
 	   }
-	
    }
-   
-   
+     
    public static void uploadFile(String fileToUpload) throws FileNotFoundException
    {
 	   String[] splitedFormat = fileToUpload.split("/");
@@ -123,8 +136,17 @@ public class Server {
 	}
    }
    
-   public static String downloadFile(String filePath) throws IOException {
+   public static void sendToClient(String filename,byte[] sendFile)
+   {
+	  String filetransfered = new String(sendFile); 
+	  filetransfered= "708/"+filename+"/"+filetransfered;
+	  sendMessage = filetransfered;
+	  
+   }
+   
+   public static byte[] downloadFile(String filePath) throws IOException {
 	   byte[] fileThatsRead = new byte[1024];
+	   filePath = "C:/DistributedComputing/" + userName + "/" + filePath.trim();
 	   File thisFile = new File(filePath);
 	   try {  
        fileThatsRead = Files.readAllBytes(thisFile.toPath());
@@ -134,10 +156,12 @@ public class Server {
 	   {
 		   System.out.println("File Doesnt Exsist");
 	   }
-	   
-	   String filetransfered = new String(fileThatsRead);  
-	   return filetransfered;
+	 
+	   return fileThatsRead;
    }
+   
+   
+   
 }   
 
 // end class      

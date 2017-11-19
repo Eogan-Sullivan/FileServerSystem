@@ -1,4 +1,7 @@
 import java.net.*;
+
+import javax.swing.JOptionPane;
+
 import java.io.*;
 
 /**
@@ -28,6 +31,7 @@ public class ClientHelper {
       returnMessage = mySocket.receiveMessage();
       return returnMessage;
    } //end getEcho
+	   
 
    public void done( ) throws SocketException {
       mySocket.close( );

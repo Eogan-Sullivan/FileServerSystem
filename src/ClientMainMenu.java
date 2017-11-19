@@ -95,7 +95,8 @@ public class ClientMainMenu {
 		btnDownloadFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {																		
 							
-						myClient.clientConnection(txtHost.getText(), txtPort.getText(),"707");										
+					 ClientDownloadManager.main(null);
+					 frame.dispose();
 				}
 			}
 		);
@@ -175,6 +176,18 @@ public class ClientMainMenu {
 		frame.getContentPane().add(logoutBtn);
 		
 	}
+
+	public static String getHostAddress() {
+		// TODO Auto-generated method stub
+		return hostAddress;
+	}
+
+	public static String getPortNo() {
+		// TODO Auto-generated method stub
+		return portNo;
+	}
+
+
 }
 
 	
