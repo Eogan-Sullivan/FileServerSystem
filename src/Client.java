@@ -3,9 +3,10 @@ import java.nio.file.Files;
 
 import javax.swing.JOptionPane;
 class Client {
+	private String temp ="";
    static final String endMessage = ".";
    public void clientConnection(String address,String port ,String message) {
-  
+	   	
 	   try {                  
          ClientHelper helper = 
             new ClientHelper(address, port);
@@ -19,10 +20,14 @@ class Client {
             }
             if(message.startsWith("708"))
             {
-            	message = message.replace("708",""); 
+            	JOptionPane.showMessageDialog(null, "708 Downloading File");
+            	temp = message.replace("708","");
+            	temp = temp.trim();
+            	downloadFile(temp);
             }
             else {
                echo = helper.getMessage( message);
+               JOptionPane.showMessageDialog(null, echo);
                
             }}
       catch (Exception ex) {
@@ -35,7 +40,7 @@ class Client {
    public byte[] readFile(String filePath) throws IOException
    {
 	   byte[] fileThatsRead = new byte[1024];
-	   File thisFile = new File("C://DistributedComputing//Downloads//"+filePath);
+	   File thisFile = new File(filePath);
 	   if(!thisFile.exists()) {
 		   thisFile.mkdirs();
 	   }
@@ -59,10 +64,10 @@ class Client {
 	  
    }
    
-   public void dowloadFromServer(String returnedFromServer)
+   public void downloadFile(String returnedFromServer) throws IOException
    {
-	   
-   }
-   
+	   JOptionPane.showMessageDialog(null, returnedFromServer +"");
+	 
+   } 
   
 } // end class      

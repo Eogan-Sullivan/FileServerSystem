@@ -2,6 +2,8 @@ import java.io.*;
 import java.net.SocketException;
 import java.nio.file.Files;
 
+import javax.swing.JOptionPane;
+
 public class Server {
 	 static int serverPort = 2208;  
 	 static String outputMessage,sendMessage;
@@ -89,14 +91,12 @@ public class Server {
            sendMessage = whichFileQuery;
            outputMessage = "809 File list sent to " + userName;
 	   }
-	   
-
-	   
+	     
 	   //receive download request 707
 	   else if(recievedMessage.startsWith("707"))
 	   {
 		   //708 download
-		   outputMessage = "707 Download Request Recieved";
+		   outputMessage = "707 Download Request Recieved\n" +recievedMessage ;
 		   recievedMessage = recievedMessage.replace("707","");
 		  byte [] fileToDownload = downloadFile(recievedMessage);
 		  sendToClient(recievedMessage,fileToDownload);
@@ -138,7 +138,8 @@ public class Server {
    
    public static void sendToClient(String filename,byte[] sendFile)
    {
-	  String filetransfered = new String(sendFile); 
+	  String filetransfered = new String(sendFile);
+	  JOptionPane.showMessageDialog(null, filetransfered);
 	  filetransfered= "708/"+filename+"/"+filetransfered;
 	  sendMessage = filetransfered;
 	  
