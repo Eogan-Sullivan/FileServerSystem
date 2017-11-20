@@ -89,7 +89,7 @@ public class Server {
        }
        
            sendMessage = whichFileQuery;
-           outputMessage = "809 File list sent to " + userName;
+           outputMessage = "808 File list Request Recieved by " + userName;
 	   }
 	     
 	   //receive download request 707

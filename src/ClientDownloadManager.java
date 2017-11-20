@@ -62,6 +62,9 @@ public class ClientDownloadManager {
 
 			
 		String listOfFiles = returnMessages.getMessage("808");
+		if(!listOfFiles.isEmpty()) {
+			JOptionPane.showMessageDialog(null,"809 File List Recieved");
+		}
 		String [] files = listOfFiles.split("/");
 		 
 
