@@ -96,8 +96,9 @@ public class Server {
 	   else if(recievedMessage.startsWith("707"))
 	   {
 		   //708 download
-		  outputMessage = "707 Download Request Recieved\n" +recievedMessage ;
 		  recievedMessage = recievedMessage.replace("707","");
+		  recievedMessage =recievedMessage.trim();
+		  outputMessage = "707 Download Request Recieved " +recievedMessage ;
 		  byte [] fileToDownload = downloadFile(recievedMessage);
 		  sendToClient(recievedMessage,fileToDownload);
 	   }   

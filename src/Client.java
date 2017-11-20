@@ -18,17 +18,20 @@ class Client {
                done = true;
                helper.done( );
             }
-            if(message.startsWith("708"))
-            {
-            	JOptionPane.showMessageDialog(null, "708 Downloading File");
-            	temp = message.replace("708","");
-            	temp = temp.trim();
-            	downloadFile(temp);
-            }
-            else {
+           
+            else  {
                echo = helper.getMessage( message);
-               JOptionPane.showMessageDialog(null, echo);
+               if(echo.startsWith("708"))
+               {
+               	JOptionPane.showMessageDialog(null, "708 Downloading File");
+               	temp = echo.replace("708","");
+               	temp = temp.trim();
+               	downloadFile(temp);
+               }
                
+               else {
+               JOptionPane.showMessageDialog(null, echo);
+               }
             }}
       catch (Exception ex) {
          ex.printStackTrace( );
@@ -66,7 +69,36 @@ class Client {
    
    public void downloadFile(String returnedFromServer) throws IOException
    {
-	   JOptionPane.showMessageDialog(null, returnedFromServer +"");
+	   String[] splitedFormat = returnedFromServer.split("/");
+	   splitedFormat[0] = splitedFormat[0].trim();
+	   splitedFormat[1] = splitedFormat[1].trim();
+	   File downloadsFile = new File("C://DistributedComputing//Downloads//");
+	   if(!downloadsFile.exists()) {
+		   downloadsFile.mkdirs();
+	   }
+	   String filePath = "C://DistributedComputing//Downloads//" + splitedFormat[1];
+	   File file2Write = new File(filePath);
+	 
+	
+		   String data = "";
+		   int i = 2;	  	
+		   while(i < splitedFormat.length){
+			    data+= splitedFormat[i];
+			    data+=" ";
+			    i++;
+		   }
+	
+	   byte[] fileinBytes = data.getBytes();
+	   FileOutputStream out = new FileOutputStream(file2Write);
+	   try {
+		   
+		out.write(fileinBytes);
+		out.close();
+	   
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	 
    } 
   
