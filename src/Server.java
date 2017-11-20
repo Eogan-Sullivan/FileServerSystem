@@ -96,8 +96,8 @@ public class Server {
 	   else if(recievedMessage.startsWith("707"))
 	   {
 		   //708 download
-		   outputMessage = "707 Download Request Recieved\n" +recievedMessage ;
-		   recievedMessage = recievedMessage.replace("707","");
+		  outputMessage = "707 Download Request Recieved\n" +recievedMessage ;
+		  recievedMessage = recievedMessage.replace("707","");
 		  byte [] fileToDownload = downloadFile(recievedMessage);
 		  sendToClient(recievedMessage,fileToDownload);
 	   }   
@@ -139,7 +139,6 @@ public class Server {
    public static void sendToClient(String filename,byte[] sendFile)
    {
 	  String filetransfered = new String(sendFile);
-	  JOptionPane.showMessageDialog(null, filetransfered);
 	  filetransfered= "708/"+filename+"/"+filetransfered;
 	  sendMessage = filetransfered;
 	  
