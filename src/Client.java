@@ -4,11 +4,12 @@ import java.nio.file.Files;
 import javax.swing.JOptionPane;
 class Client {
 	private String temp ="";
+	private ClientHelper helper;
    static final String endMessage = ".";
    public void clientConnection(String address,String port ,String message) {
 	   	
 	   try {                  
-         ClientHelper helper = 
+          helper = 
             new ClientHelper(address, port);
          boolean done = false;
          String echo;
@@ -34,7 +35,7 @@ class Client {
                }
             }}
       catch (Exception ex) {
-         ex.printStackTrace( );
+    	  JOptionPane.showMessageDialog(null, "Check if Server is running on correct port", "Error", JOptionPane.ERROR_MESSAGE);;
       } // end catch
    }
    
@@ -44,9 +45,8 @@ class Client {
    {
 	   byte[] fileThatsRead = new byte[1024];
 	   File thisFile = new File(filePath);
-	   if(!thisFile.exists()) {
-		   thisFile.mkdirs();
-	   }
+	  
+	  
 	   try {  
        fileThatsRead = Files.readAllBytes(thisFile.toPath());
 	   

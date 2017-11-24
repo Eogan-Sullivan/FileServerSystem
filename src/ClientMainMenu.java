@@ -12,6 +12,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class ClientMainMenu {
@@ -23,6 +24,7 @@ public class ClientMainMenu {
 	private JTextField txtHost;
 	private JTextField txtFilePath;
 	private File tempFile;
+	private Client myClient;
 
 
 	/**
@@ -64,7 +66,7 @@ public class ClientMainMenu {
 	 */
 	private void initialize() {
 		
-		Client myClient = new Client();
+		myClient = new Client();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,7 +76,10 @@ public class ClientMainMenu {
 		JButton btnUploadFile = new JButton("Upload File");
 		btnUploadFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {																		
-							//myClient.clientConnection(hostAddress,portNo,""+txtFilePath.getText());
+							if(txtFilePath.getText().isEmpty()|| txtFilePath.getText().equals("Enter File Path")) {
+								JOptionPane.showMessageDialog(null, "File Path not specified", "Error", JOptionPane.ERROR_MESSAGE);
+							}
+							else {
 							tempFile = new File(txtFilePath.getText());
 							
 							try {
@@ -84,7 +89,8 @@ public class ClientMainMenu {
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
-							}											
+							}	
+							}
 				}
 			}
 		);

@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 public class ClientDownloadManager {
 
 	private JFrame frame;
+	private Client myClient;
 
 	/**
 	 * Launch the application.
@@ -47,7 +48,7 @@ public class ClientDownloadManager {
 	@SuppressWarnings("unchecked")
 	private void initialize() throws SocketException, IOException {
 		
-		Client myClient = new Client();
+		myClient = new Client();
 		ClientHelper returnMessages = null;
 		try {
 		 returnMessages = new ClientHelper(ClientMainMenu.getHostAddress(), ClientMainMenu.getPortNo());
@@ -85,9 +86,14 @@ public class ClientDownloadManager {
 		btnDownload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
-				myClient.clientConnection(ClientMainMenu.getHostAddress(), ClientMainMenu.getPortNo(),"707 "+ downloadDropDown.getSelectedItem().toString());
+				try {
+			
+					myClient.clientConnection(ClientMainMenu.getHostAddress(), ClientMainMenu.getPortNo(),"707 "+ downloadDropDown.getSelectedItem().toString());
 			}
+				catch(NullPointerException f)
+				{
+					JOptionPane.showMessageDialog(null, "No Files Exsist In Directory", "Error", JOptionPane.ERROR_MESSAGE);
+				}}
 		});
 		btnDownload.setBounds(53, 68, 110, 23);
 		frame.getContentPane().add(btnDownload);

@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.net.SocketException;
 import java.awt.event.ActionEvent;
 
 public class ClientLogIn {
@@ -16,6 +17,7 @@ public class ClientLogIn {
 	private JTextField txtPortNo;
 	private JTextField txtName;
 	private JLabel lblName;
+	private Client myClient;
 
 	/**
 	 * Launch the application.
@@ -83,6 +85,11 @@ public class ClientLogIn {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			if(txtName.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Enter Username", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+			try {
 			ClientMainMenu.setName(txtName.getText());
 			ClientMainMenu.setPortNo(txtPortNo.getText());
 			ClientMainMenu.setHostAddress(txtHostAddress.getText());
@@ -91,11 +98,16 @@ public class ClientLogIn {
 			frmFilesystemClient.dispose();
 			
 			//send Message to Server About Login
-			Client myClient = new Client();
+			myClient = new Client();
+		
 			myClient.clientConnection(txtHostAddress.getText(), txtPortNo.getText(), "701"+txtName.getText());
 			
-				
-				
+			}
+			catch(Exception e)
+			{
+				JOptionPane.showMessageDialog(null, "Server Not Found", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			}
 			}
 		});
 		btnLogin.setBounds(19, 159, 181, 23);
